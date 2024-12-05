@@ -8,7 +8,7 @@ router = APIRouter()
 
 @router.post("/products/", response_model=schemas.Product)
 async def create_product(
-    product: schemas.ProductCreate, db: AsyncSession = Depends(get_db)
+        product: schemas.ProductCreate, db: AsyncSession = Depends(get_db)
 ):
     return await crud.create_product(db=db, product=product)
 
@@ -23,7 +23,9 @@ async def get_product(product_id: int, db: AsyncSession = Depends(get_db)):
 
 @router.put("/products/{product_id}", response_model=schemas.Product)
 async def update_product(
-    product_id: int, product: schemas.ProductCreate, db: AsyncSession = Depends(get_db)
+        product_id: int,
+        product: schemas.ProductCreate,
+        db: AsyncSession = Depends(get_db)
 ):
     db_product = await crud.update_product(
         db=db, product_id=product_id, product=product
@@ -43,7 +45,7 @@ async def delete_product(product_id: int, db: AsyncSession = Depends(get_db)):
 
 @router.post("/categories/", response_model=schemas.Category)
 async def create_category(
-    category: schemas.CategoryCreate, db: AsyncSession = Depends(get_db)
+        category: schemas.CategoryCreate, db: AsyncSession = Depends(get_db)
 ):
     return await crud.create_category(db=db, category=category)
 
@@ -57,7 +59,10 @@ async def get_category(category_id: int, db: AsyncSession = Depends(get_db)):
 
 
 @router.delete("/categories/{category_id}")
-async def delete_category(category_id: int, db: AsyncSession = Depends(get_db)):
+async def delete_category(
+        category_id: int,
+        db: AsyncSession = Depends(get_db)
+):
     db_category = await crud.delete_category(db=db, category_id=category_id)
     if db_category is None:
         raise HTTPException(status_code=404, detail="Category not found")

@@ -25,7 +25,11 @@ async def get_product(db: AsyncSession, product_id: int):
     return result.scalar_one_or_none()
 
 
-async def update_product(db: AsyncSession, product_id: int, product: ProductUpdate):
+async def update_product(
+        db: AsyncSession,
+        product_id: int,
+        product: ProductUpdate
+):
     db_product = await get_product(db, product_id)
     if db_product:
         if product.name:
@@ -60,7 +64,10 @@ async def create_category(db: AsyncSession, category: CategoryCreate):
 
 
 async def get_category(db: AsyncSession, category_id: int):
-    result = await db.execute(select(Category).filter(Category.id == category_id))
+    result = await db.execute(
+        select(Category)
+        .filter(Category.id == category_id)
+    )
     return result.scalar_one_or_none()
 
 
